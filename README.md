@@ -27,4 +27,4 @@ $ npm start
 Бэк:
 
 * Node.js, Express
-* MongoDB, mongoose
+* MongoDB-Atlas, mongoose
