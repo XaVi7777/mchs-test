@@ -57,12 +57,14 @@ export default ({ id, title }) => {
           id="start"
           label="Старт"
           onChange={onChangeHandler}
+          onFocus={onChangeHandler}
           onKeyPress={onSubmitHandler}
         />
         <DataInput
           id="finish"
           label="Финиш"
           onChange={onChangeHandler}
+          onFocus={onChangeHandler}
           onKeyPress={onSubmitHandler}
         />
         <Button

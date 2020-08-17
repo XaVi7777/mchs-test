@@ -10,6 +10,10 @@ const options = require('../../options');
 
 const router = express.Router();
 /* GET home page. */
+router.get('/', (req, res) => {
+  res.render('index');
+});
+
 router.get('/currentcourse', async (req, res) => {
   try {
     const course = await CurrentCourse.findOne();

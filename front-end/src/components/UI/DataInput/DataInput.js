@@ -15,9 +15,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DatePickers({ onChange, onKeyPress, label, id }) {
+export default function DatePickers({ onChange, onKeyPress, label, id, onFocus}) {
   const classes = useStyles();
- 
+
 
   return (
     <form className={classes.container} noValidate>
@@ -30,6 +30,7 @@ export default function DatePickers({ onChange, onKeyPress, label, id }) {
           shrink: true,
         }}
         onChange={onChange}
+        onFocus={onFocus}
         onKeyPress={onKeyPress}
       />
     </form>
