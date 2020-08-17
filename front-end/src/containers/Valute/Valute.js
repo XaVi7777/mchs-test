@@ -14,6 +14,7 @@ export default ({ id, title }) => {
 
   useEffect(() => {
     return cleanChart();
+    // eslint-disable-next-line
   }, [])
   const [dataInputBtn, setDataInputBtn] = useState(true);
   const {
@@ -40,7 +41,8 @@ export default ({ id, title }) => {
         ...dataInputValues,
         errorMessage: ''
       });
-      getCurrentValute(dataInputValues, id)
+      getCurrentValute(dataInputValues, id);
+      setDataInputBtn(true);
     } else {
       setInputValues({
         ...dataInputValues,

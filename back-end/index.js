@@ -7,7 +7,6 @@ const options = require('./options');
 const requestCourse = require('./utils');
 const PORT = process.env.PORT || 4000;
 
-// const MONGODB_URI = 'mongodb://localhost:27017/mchs';
 
 const app = express();
 
@@ -25,8 +24,8 @@ async function start() {
       useUnifiedTopology: true,
     });
 
-    setInterval(requestCourse, 5000);
-
+    requestCourse();
+    
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });

@@ -38,7 +38,7 @@ const useStyles = makeStyles({
 export default function DenseTable() {
   const {
     state, getCurrentCourse, getCourseByDate,
-    getReport,
+     createReport,
   } = useContext(courseContext);
   const [dataInput, setDataInput] = useState('');
   const [dataInputBtn, setDataInputBtn] = useState(true);
@@ -60,15 +60,16 @@ export default function DenseTable() {
   }
 
   const onSubmitHandler = event => {
-
     if (event.key && event.key !== 'Enter') {
       return
     }
+
     if (dataInput) {
       moment.locale('ru');
       toggleFilter(false);
       filterValute([]);
-      getCourseByDate(moment(dataInput).format('L'))
+      getCourseByDate(moment(dataInput).format('L'));
+      setDataInputBtn(true)
     }
   }
 
@@ -134,7 +135,10 @@ export default function DenseTable() {
     }
   }
 
-  console.log(state)
+  const onClickReportHandler = async() => {
+    return await createReport(state.linkFile)
+  }
+
   return (
     <>
       <TableContainer
@@ -193,12 +197,13 @@ export default function DenseTable() {
           <div className={classes.btnContainer}>
             <button
               className={classes.btn}
+            // onClick={onClickReportHandler}
             >
               <DownloadLink
                 className={classes.link}
                 label="Выгрузить отчёт"
                 filename="report.json"
-                exportFile={() => getReport(state.linkFile)}
+                exportFile={() => onClickReportHandler(state.linkFile)}
               />
 
             </button>

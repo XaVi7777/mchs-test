@@ -19,10 +19,10 @@ export const CourseState = ({ children }) => {
     linkFile: '',
   }
 
-
   const [state, dispatch] = useReducer(courseReducer, initialState);
 
   const getCurrentCourse = async () => {
+
     setLoading();
     const response = await fetch(BACK_END_API_URL);
 
@@ -40,7 +40,6 @@ export const CourseState = ({ children }) => {
         payload: json.error,
       })
     }
-
   }
 
   const getCourseByDate = async date => {
@@ -109,11 +108,24 @@ export const CourseState = ({ children }) => {
     });
   }
 
-  const getReport = async link => {
-
-    const response = await fetch(link);
+  const createReport = async link => {
+    const response = await fetch(`${BACK_END_API_URL}/${state.date}/${link}`);
     const json = await response.json();
-    return JSON.stringify(json);
+    if (json.error) {
+      dispatch({
+        type: CATCH_ERROR,
+        payload: json.error,
+      })
+    }
+    if (json.success) {
+      return getReport(link)
+    }
+  }
+
+  const getReport = async link => {
+    const responseReport = await fetch(link);
+    const jsonReport = await responseReport.json();
+    return JSON.stringify(jsonReport);
   }
 
   const cleanChart = () => {
@@ -122,6 +134,7 @@ export const CourseState = ({ children }) => {
       payload: '',
     })
   }
+
   const setLoading = () => {
     dispatch({
       type: SET_LOADING,
@@ -132,7 +145,7 @@ export const CourseState = ({ children }) => {
     <courseContext.Provider
       value={{
         getCurrentCourse, getCourseByDate, getCurrentValute,
-        getReport, cleanChart,
+        cleanChart, createReport,
         state,
       }}
     >
@@ -140,3 +153,4 @@ export const CourseState = ({ children }) => {
     </courseContext.Provider>
   )
 }
+
