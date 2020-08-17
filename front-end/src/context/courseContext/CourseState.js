@@ -6,7 +6,7 @@ import {
   SET_LOADING, GET_CURRENT_COURSE, CATCH_ERROR,
   CURRENT_VALUTE,
 } from '../types';
-
+import { PROXY, BACK_END_API_URL, API_URL } from './options';
 
 export const CourseState = ({ children }) => {
   const initialState = {
@@ -19,12 +19,12 @@ export const CourseState = ({ children }) => {
     linkFile: '',
   }
 
-  const API_URL = '/currentcourse';
+
   const [state, dispatch] = useReducer(courseReducer, initialState);
 
   const getCurrentCourse = async () => {
     setLoading();
-    const response = await fetch(API_URL);
+    const response = await fetch(BACK_END_API_URL);
 
     const json = await response.json();
 
@@ -45,7 +45,7 @@ export const CourseState = ({ children }) => {
 
   const getCourseByDate = async date => {
     setLoading();
-    const response = await fetch(API_URL, {
+    const response = await fetch(BACK_END_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ date }),
@@ -84,15 +84,14 @@ export const CourseState = ({ children }) => {
     if (report) {
       data = JSON.parse(report);
     } else {
-      const proxy = 'https://cors-anywhere.herokuapp.com/';
-      const URL = `${proxy}http://www.cbr.ru/scripts/XML_dynamic.asp?date_req1=${start}&date_req2=${finish}&VAL_NM_RQ=${id}`;
+      const URL = `${PROXY}${API_URL}?date_req1=${start}&date_req2=${finish}&VAL_NM_RQ=${id}`;
+
       const response = await fetch(URL);
       const xml = await response.text();
       const json = convert.xml2json(xml, { compact: true, spaces: 4 });
       localStorage.setItem(title + start + finish, json);
       data = JSON.parse(json);
     }
-    console.log('data', data)
     const arrOfCourseValuts = data.ValCurs.Record;
 
     arrOfCourseValuts.forEach(key => {

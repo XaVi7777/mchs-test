@@ -15,7 +15,7 @@ export default function ({ valute }) {
         const valuteData = getPropsFromValute(valute);
         const id = valuteData[0];
         const valuteTitle = valuteData[2];
-        console.log(valuteData)
+
         return (
           <TableRow
             key={id}
