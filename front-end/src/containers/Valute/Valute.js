@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import moment from 'moment-with-locales-es6';
 import DataInput from '../../components/UI/DataInput/DataInput';
 import { courseContext } from '../../context/courseContext/courseContext';
@@ -11,9 +11,13 @@ export default ({ id, title }) => {
     finish: '',
     errorMessage: '',
   });
+
+  useEffect(() => {
+    return cleanChart();
+  }, [])
   const [dataInputBtn, setDataInputBtn] = useState(true);
   const {
-    state, getCurrentValute,
+    state, getCurrentValute, cleanChart
   } = useContext(courseContext);
 
   const onChangeHandler = event => {

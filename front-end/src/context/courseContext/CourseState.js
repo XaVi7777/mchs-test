@@ -4,7 +4,7 @@ import { courseContext } from './courseContext';
 import { courseReducer } from './courseReducer';
 import {
   SET_LOADING, GET_CURRENT_COURSE, CATCH_ERROR,
-  CURRENT_VALUTE,
+  CURRENT_VALUTE, CLEAN_CHART,
 } from '../types';
 import { PROXY, BACK_END_API_URL, API_URL } from './options';
 
@@ -115,6 +115,13 @@ export const CourseState = ({ children }) => {
     const json = await response.json();
     return JSON.stringify(json);
   }
+
+  const cleanChart = () => {
+    dispatch({
+      type: CLEAN_CHART,
+      payload: '',
+    })
+  }
   const setLoading = () => {
     dispatch({
       type: SET_LOADING,
@@ -125,7 +132,7 @@ export const CourseState = ({ children }) => {
     <courseContext.Provider
       value={{
         getCurrentCourse, getCourseByDate, getCurrentValute,
-        getReport,
+        getReport, cleanChart,
         state,
       }}
     >

@@ -1,5 +1,5 @@
 import {
-  GET_CURRENT_COURSE, CATCH_ERROR, SET_LOADING, CURRENT_VALUTE, 
+  GET_CURRENT_COURSE, CATCH_ERROR, SET_LOADING, CURRENT_VALUTE, CLEAN_CHART, 
 } from "../types";
 
 const handlers = {
@@ -23,6 +23,11 @@ const handlers = {
   }),
 
   [CURRENT_VALUTE]: (state, { payload }) => ({
+    ...state,
+    currentValute: payload,
+  }),
+
+  [CLEAN_CHART]: (state, { payload }) => ({
     ...state,
     currentValute: payload,
   }),

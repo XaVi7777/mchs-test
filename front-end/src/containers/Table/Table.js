@@ -76,7 +76,7 @@ export default function DenseTable() {
     const { value } = event.target;
     if (value.trim()) {
       toggleFilter(true);
-      filterValute(state.valute.filter(valute => valute.charcode._text.indexOf(value) !== -1))
+      filterValute(state.valute.filter(valute => valute.charcode._text.indexOf(value.toLowerCase()) !== -1))
     } else {
       toggleFilter(false);
     }
@@ -134,6 +134,7 @@ export default function DenseTable() {
     }
   }
 
+  console.log(state)
   return (
     <>
       <TableContainer
@@ -162,10 +163,10 @@ export default function DenseTable() {
           </div>
           <SearchInput
             id="filled-full-width"
-            label="Код"
+            label="валюта"
             margin="normal"
             variant="filled"
-            placeholder="Введите код валюты"
+            placeholder="Введите валюту"
             fullWidth={true}
             onChange={onChangeHandler}
           />
