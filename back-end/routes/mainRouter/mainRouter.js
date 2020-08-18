@@ -1,6 +1,4 @@
 const express = require('express');
-const fs = require("fs");
-const path = require('path');
 const CurrentCourse = require('../../models/CurrentCourse/CurrentCourse');
 const Course = require('../../models/Course/Course');
 const request = require('request');
@@ -18,7 +16,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/currentcourse/:date/:file', async (req, res) => {
-  console.log(333)
+
   try {
     const fileTitle = req.params.file;
     const date = req.params.date;
@@ -43,7 +41,7 @@ router.get('/currentcourse', async (req, res) => {
 });
 
 router.post('/currentcourse', async (req, res) => {
-  console.log('post')
+
   const { date } = req.body;
 
   const URL = `${options.API_URL}?date_req=${date}`;
